@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Test automatycznej publikacji Vercel -->
 <html lang="pl">
 <head>
 <meta charset="utf-8">
@@ -105,6 +104,18 @@ nav a:hover::after,nav a.active::after{width:100%}
 .t1{grid-column:span 2;grid-row:span 2}
 .t4{grid-row:span 2}
 .t6{grid-column:span 2}
+.tile{cursor:zoom-in}
+.lb{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;color:var(--cream)}
+.lb::backdrop{background:rgba(14,13,11,.94)}
+.lb-inner{position:relative;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:4.5rem 1rem 2rem}
+.lb img{max-width:min(94vw,1400px);max-height:76vh;object-fit:contain;background:var(--ink)}
+.lb p{margin:0;max-width:none;letter-spacing:.08em;font-size:.9rem;text-align:center}
+.lb button{position:absolute;width:48px;height:48px;background:rgba(14,13,11,.6);border:1px solid var(--gold);color:var(--cream);font:300 1.6rem/1 var(--sans);cursor:pointer;transition:background .3s,color .3s}
+.lb button:hover{background:var(--gold);color:var(--black)}
+.lb-close{top:1rem;right:1rem}
+.lb-prev{left:1rem;top:50%;transform:translateY(-50%)}
+.lb-next{right:1rem;top:50%;transform:translateY(-50%)}
+@media (max-width:560px){.lb-prev,.lb-next{top:auto;bottom:1rem;transform:none}}
 .gallery-note{font-size:.85rem;color:#5d5645;margin-top:1rem}
 
 /* dlaczego */
@@ -122,8 +133,14 @@ label{font-size:.85rem;letter-spacing:.06em}
 input,textarea{width:100%;padding:.85rem 1rem;background:#fbf8f1;border:1px solid var(--beige);font:inherit;color:var(--ink);border-radius:0}
 input:focus,textarea:focus{border-color:var(--gold);outline:none}
 textarea{min-height:120px;resize:vertical}
-.demo-note{font-size:.85rem;background:#ece3cf;border-left:2px solid var(--gold);padding:.8rem 1rem;margin:0}
-#form-status{min-height:1.5rem;font-size:.92rem;margin:0}
+.form-notice{display:none;align-items:flex-start;gap:.8rem;padding:1rem 1.2rem;background:var(--black);color:var(--cream);border-left:2px solid var(--gold);font-size:.95rem;line-height:1.5;animation:rise .6s cubic-bezier(.2,.7,.2,1)}
+.form-notice.show{display:flex}
+.form-notice::before{content:"";flex:none;width:8px;height:8px;margin-top:.5em;background:var(--gold);transform:rotate(45deg)}
+.form-notice.error{border-left-color:#b5533c}
+.form-notice a{color:var(--gold)}
+#submit-btn[disabled]{opacity:.6;cursor:wait}
+.form-foot{margin:0;font-size:.8rem;color:#6e6247;max-width:none}
+button.btn[type="submit"]:focus-visible{outline-offset:4px}
 
 /* stopka */
 footer{background:var(--black);color:var(--sand);padding:3rem 0;font-size:.85rem}
@@ -256,12 +273,12 @@ footer .logo{font-size:1.2rem}
       <h2>Wnętrza i fryzury</h2>
     </div>
     <div class="gallery reveal">
-      <figure class="tile t1"><img src="https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1000" srcset="https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=600 600w, https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1600 1600w" sizes="(max-width:900px) 100vw, 600px" alt="Nowoczesne wnętrze salonu fryzjerskiego z fotelami i lustrami" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Wnętrze salonu</span></figure>
-      <figure class="tile t2"><img src="https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Kobieta z długimi, rozjaśnionymi włosami w stylu balayage" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Balayage</span></figure>
-      <figure class="tile t3"><img src="https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Kobieta z krótką, wyraźnie wyciętą fryzurą" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Krótkie cięcie</span></figure>
-      <figure class="tile t4"><img src="https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Fryzjer wykonujący upięcie włosów siedzącej klientce" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Upięcie</span></figure>
-      <figure class="tile t5"><img src="https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Szczegół wnętrza salonu: szary sufit z geometrycznym wzorem" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Detale wnętrza</span></figure>
-      <figure class="tile t6"><img src="https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=1000" srcset="https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=600 600w, https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=1600 1600w" sizes="(max-width:900px) 100vw, 600px" alt="Dłoń z okrągłą szczotką stylizująca długie blond włosy" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Stylizacja</span></figure>
+      <figure tabindex="0" role="button" aria-label="Powiększ zdjęcie" class="tile t1"><img src="https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1000" srcset="https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=600 600w, https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1600 1600w" sizes="(max-width:900px) 100vw, 600px" alt="Nowoczesne wnętrze salonu fryzjerskiego z fotelami i lustrami" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Wnętrze salonu</span></figure>
+      <figure tabindex="0" role="button" aria-label="Powiększ zdjęcie" class="tile t2"><img src="https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Kobieta z długimi, rozjaśnionymi włosami w stylu balayage" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Balayage</span></figure>
+      <figure tabindex="0" role="button" aria-label="Powiększ zdjęcie" class="tile t3"><img src="https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Kobieta z krótką, wyraźnie wyciętą fryzurą" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Krótkie cięcie</span></figure>
+      <figure tabindex="0" role="button" aria-label="Powiększ zdjęcie" class="tile t4"><img src="https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Fryzjer wykonujący upięcie włosów siedzącej klientce" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Upięcie</span></figure>
+      <figure tabindex="0" role="button" aria-label="Powiększ zdjęcie" class="tile t5"><img src="https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Szczegół wnętrza salonu: szary sufit z geometrycznym wzorem" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Detale wnętrza</span></figure>
+      <figure tabindex="0" role="button" aria-label="Powiększ zdjęcie" class="tile t6"><img src="https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=1000" srcset="https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=600 600w, https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=1600 1600w" sizes="(max-width:900px) 100vw, 600px" alt="Dłoń z okrągłą szczotką stylizująca długie blond włosy" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Stylizacja</span></figure>
     </div>
     <p class="gallery-note">Zdjęcia: Unsplash (licencja Unsplash). Zdjęcia mają charakter poglądowy i nie przedstawiają prawdziwego salonu.</p>
   </div>
@@ -297,17 +314,28 @@ footer .logo{font-size:1.2rem}
         <li><b>Godziny otwarcia</b>pon.–pt. 10:00–19:00, sob. 9:00–15:00</li>
       </ul>
     </div>
-    <form id="contact-form" class="reveal" novalidate>
-      <p class="demo-note">To formularz demonstracyjny. Nie jest podłączony do żadnej obsługi, więc wiadomość nie zostanie wysłana ani zapisana.</p>
-      <div><label for="name">Imię</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+    <form id="contact-form" class="reveal">
+      <div><label for="name">Imię</label><input id="name" name="name" type="text" autocomplete="name" required maxlength="100"></div>
       <div><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-      <div><label for="msg">Wiadomość</label><textarea id="msg" name="msg" required></textarea></div>
-      <button type="submit" class="btn solid on-light">Sprawdź formularz</button>
-      <p id="form-status" role="status" aria-live="polite"></p>
+      <div><label for="msg">Wiadomość</label><textarea id="msg" name="msg" required maxlength="3000"></textarea></div>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <button type="submit" id="submit-btn" class="btn solid on-light">Wyślij wiadomość</button>
+      <div id="form-status" class="form-notice" role="status" aria-live="polite" hidden></div>
+      <p class="form-foot">Wiadomość trafia na adres jasikwebcompany@gmail.com za pośrednictwem usługi FormSubmit. Strona jest projektem demonstracyjnym.</p>
     </form>
   </div>
 </section>
 </main>
+
+<dialog class="lb" id="lightbox" aria-label="Powiększone zdjęcie">
+  <div class="lb-inner">
+    <button type="button" class="lb-close" aria-label="Zamknij">&times;</button>
+    <button type="button" class="lb-prev" aria-label="Poprzednie zdjęcie">&lsaquo;</button>
+    <img id="lb-img" src="" alt="">
+    <p id="lb-cap"></p>
+    <button type="button" class="lb-next" aria-label="Następne zdjęcie">&rsaquo;</button>
+  </div>
+</dialog>
 
 <footer>
   <div class="wrap foot">
@@ -369,20 +397,96 @@ footer .logo{font-size:1.2rem}
     document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
   }
 
-  // Formularz demonstracyjny: tylko walidacja, bez wysyłki
+  // Formularz kontaktowy: wysyłka przez FormSubmit (AJAX) z awaryjnym mailto
+  var TO = "jasikwebcompany@gmail.com";
   var form = document.getElementById("contact-form");
   var status = document.getElementById("form-status");
+  var btn = document.getElementById("submit-btn");
+
+  function notice(text, isError, mailtoHref) {
+    status.textContent = text;
+    if (mailtoHref) {
+      status.appendChild(document.createTextNode(" "));
+      var a = document.createElement("a");
+      a.href = mailtoHref;
+      a.textContent = "Wyślij przez program pocztowy.";
+      status.appendChild(a);
+    }
+    status.classList.toggle("error", !!isError);
+    status.hidden = false;
+    status.classList.remove("show");
+    void status.offsetWidth;
+    status.classList.add("show");
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    if (form.elements._honey.value) { return; } // pole pułapka na boty
     var name = form.elements.name.value.trim();
     var email = form.elements.email.value.trim();
     var msg = form.elements.msg.value.trim();
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!name || !emailOk || !msg) {
-      status.textContent = "Uzupełnij imię, poprawny adres e-mail i wiadomość.";
-      return;
-    }
-    status.textContent = "Formularz jest wypełniony poprawnie, ale to wersja demonstracyjna. Nic nie zostało wysłane.";
+    var mailto = "mailto:" + TO + "?subject=" + encodeURIComponent("Wiadomość ze strony STUDIO NOIR od: " + name) +
+      "&body=" + encodeURIComponent(msg + "\n\n" + name + "\n" + email);
+
+    var data = new FormData();
+    data.append("name", name);
+    data.append("email", email);
+    data.append("message", msg);
+    data.append("_subject", "Wiadomość ze strony STUDIO NOIR");
+    data.append("_replyto", email);
+    data.append("_captcha", "false");
+    data.append("_template", "table");
+
+    btn.disabled = true;
+    btn.textContent = "Wysyłanie…";
+    fetch("https://formsubmit.co/ajax/" + TO, { method: "POST", headers: { "Accept": "application/json" }, body: data })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+      .then(function (res) {
+        if (res.ok && String(res.body.success) === "true") {
+          form.reset();
+          notice("Dziękujemy! Wiadomość została wysłana.", false);
+        } else {
+          notice("Nie udało się wysłać wiadomości.", true, mailto);
+        }
+      })
+      .catch(function () { notice("Nie udało się połączyć z usługą wysyłki.", true, mailto); })
+      .then(function () { btn.disabled = false; btn.textContent = "Wyślij wiadomość"; });
+  });
+
+  // Lightbox: powiększanie zdjęć z galerii
+  var tiles = Array.prototype.slice.call(document.querySelectorAll(".tile"));
+  var lb = document.getElementById("lightbox");
+  var lbImg = document.getElementById("lb-img");
+  var lbCap = document.getElementById("lb-cap");
+  var current = 0;
+
+  function show(i) {
+    current = (i + tiles.length) % tiles.length;
+    var im = tiles[current].querySelector("img");
+    lbImg.src = im.src.replace(/w=\d+/, "w=1800");
+    lbImg.alt = im.alt;
+    lbCap.textContent = tiles[current].querySelector("span").textContent;
+  }
+  function open(i) {
+    show(i);
+    if (typeof lb.showModal === "function") { lb.showModal(); } else { lb.setAttribute("open", ""); }
+  }
+  function close() { if (lb.open) { lb.close(); } }
+
+  tiles.forEach(function (t, i) {
+    t.addEventListener("click", function () { open(i); });
+    t.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(i); }
+    });
+  });
+  lb.querySelector(".lb-close").addEventListener("click", close);
+  lb.querySelector(".lb-prev").addEventListener("click", function () { show(current - 1); });
+  lb.querySelector(".lb-next").addEventListener("click", function () { show(current + 1); });
+  lb.addEventListener("click", function (e) { if (e.target === lb || e.target.classList.contains("lb-inner")) { close(); } });
+  document.addEventListener("keydown", function (e) {
+    if (!lb.open) { return; }
+    if (e.key === "ArrowLeft") { show(current - 1); }
+    if (e.key === "ArrowRight") { show(current + 1); }
   });
 
   // Ukryj kafelek, jeśli zdjęcie się nie wczyta (bez pustych ramek)
