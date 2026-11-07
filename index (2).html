@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STUDIO NOIR – salon fryzjerski (projekt demonstracyjny)</title>
+<meta name="description" content="Demonstracyjna strona fikcyjnego salonu fryzjerskiego STUDIO NOIR.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0e0d0b; --ink:#1b1915; --cream:#f5efe3; --beige:#d9ccb4; --sand:#b9a98a; --gold:#c4a35a;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Jost","Helvetica Neue",Arial,sans-serif;
+  --pad:clamp(1.25rem,5vw,4rem);
+  --nav-h:76px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h)}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1.05;margin:0}
+h2{font-size:clamp(2.4rem,6vw,4.6rem);letter-spacing:-.01em}
+h3{font-size:1.6rem;font-weight:500}
+p{margin:0 0 1rem;max-width:58ch}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--pad)}
+section{padding:clamp(5rem,12vw,9rem) 0}
+.dark{background:var(--black);color:var(--cream)}
+.kicker{color:var(--gold);font-size:.85rem;letter-spacing:.14em;margin-bottom:1.2rem}
+.btn{display:inline-block;padding:.95rem 2.2rem;border:1px solid var(--gold);color:var(--cream);background:transparent;font:400 .85rem var(--sans);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .3s,color .3s}
+.btn:hover{background:var(--gold);color:var(--black)}
+.btn.solid{background:var(--gold);color:var(--black)}
+.btn.solid:hover{background:var(--cream)}
+.btn.on-light{color:var(--ink)}
+.btn.on-light:hover{color:var(--black)}
+
+/* nawigacja */
+header{position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:50;transition:background .4s,box-shadow .4s}
+header.scrolled{background:rgba(14,13,11,.94);backdrop-filter:blur(8px)}
+.nav{height:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--serif);font-size:1.6rem;letter-spacing:.28em;text-decoration:none;color:var(--cream);font-weight:500}
+.logo span{color:var(--gold)}
+nav ul{display:flex;gap:2.2rem;list-style:none;margin:0;padding:0}
+nav a{color:var(--cream);text-decoration:none;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;position:relative;padding:.3rem 0}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+nav a:hover::after,nav a.active::after{width:100%}
+.burger{display:none;width:44px;height:44px;background:none;border:0;cursor:pointer;position:relative}
+.burger span{position:absolute;left:10px;right:10px;height:1px;background:var(--cream);transition:transform .3s,opacity .3s}
+.burger span:nth-child(1){top:16px}.burger span:nth-child(2){top:22px}.burger span:nth-child(3){top:28px}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;background:var(--black);color:var(--cream);padding:calc(var(--nav-h) + 3rem) 0 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-bg::after{content:"";position:absolute;inset:0;background:rgba(14,13,11,.62)}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-size:clamp(3.4rem,11vw,9.5rem);letter-spacing:-.02em}
+.hero h1 em{display:block;font-style:italic;color:var(--beige)}
+.hero .rule{height:1px;background:var(--gold);width:0;margin:2.2rem 0;animation:draw 1.6s .3s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes draw{to{width:min(320px,60%)}}
+.hero p{color:var(--beige);font-size:1.1rem}
+.hero .actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+.hero .line{opacity:0;transform:translateY(24px);animation:rise 1.1s forwards cubic-bezier(.2,.7,.2,1)}
+.hero h1 .line:nth-child(2){animation-delay:.25s}
+.hero p.line{animation-delay:.7s}.hero .actions.line{animation-delay:.9s}
+@keyframes rise{to{opacity:1;transform:none}}
+.scroll-hint{z-index:1;position:absolute;bottom:1.6rem;left:50%;width:1px;height:48px;background:linear-gradient(var(--gold),transparent)}
+
+/* o salonie */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.visual{aspect-ratio:4/5;position:relative;overflow:hidden;background:var(--ink)}
+.visual img{width:100%;height:100%;object-fit:cover}
+.visual::before{content:"";position:absolute;inset:14px;border:1px solid rgba(196,163,90,.7);pointer-events:none;z-index:1}
+.facts{display:flex;gap:2.5rem;margin-top:2rem;flex-wrap:wrap}
+.facts div{border-left:1px solid var(--gold);padding-left:1rem}
+.facts strong{font-family:var(--serif);font-size:2.2rem;font-weight:300;display:block;line-height:1}
+.facts span{font-size:.85rem;color:#5d5645}
+
+/* oferta */
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:3.5rem}
+.price-group{margin-bottom:3rem}
+.price-group h3{color:var(--gold);margin-bottom:1rem}
+.price-row{display:flex;align-items:baseline;gap:1rem;padding:1.1rem 0;border-bottom:1px solid rgba(217,204,180,.18)}
+.price-row .name{font-size:1.1rem}
+.price-row .desc{display:block;font-size:.88rem;color:var(--sand)}
+.price-row .dots{flex:1}
+.price-row .price{font-family:var(--serif);font-size:1.5rem;color:var(--beige);white-space:nowrap}
+.price-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(2rem,6vw,6rem)}
+.note{font-size:.85rem;color:var(--sand);margin-top:1rem}
+
+/* galeria */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(140px,22vw,260px);gap:.9rem;margin-top:3rem}
+.tile{position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:1rem;margin:0;background:var(--ink);color:var(--cream);font-size:.85rem;letter-spacing:.08em}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(14,13,11,.6))}
+.tile span{position:relative;z-index:1}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.tile:hover img{transform:scale(1.06)}
+.t1{grid-column:span 2;grid-row:span 2}
+.t4{grid-row:span 2}
+.t6{grid-column:span 2}
+.gallery-note{font-size:.85rem;color:#5d5645;margin-top:1rem}
+
+/* dlaczego */
+.reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:3rem 3rem;margin-top:3.5rem}
+.reason{border-top:1px solid var(--gold);padding-top:1.4rem}
+.reason p{color:var(--beige);font-size:.98rem}
+
+/* kontakt */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,6rem)}
+.contact-list{list-style:none;padding:0;margin:2rem 0 0}
+.contact-list li{padding:1rem 0;border-bottom:1px solid var(--beige)}
+.contact-list b{display:block;font-weight:500;font-size:.85rem;letter-spacing:.08em;color:#6e6247}
+form{display:grid;gap:1.1rem}
+label{font-size:.85rem;letter-spacing:.06em}
+input,textarea{width:100%;padding:.85rem 1rem;background:#fbf8f1;border:1px solid var(--beige);font:inherit;color:var(--ink);border-radius:0}
+input:focus,textarea:focus{border-color:var(--gold);outline:none}
+textarea{min-height:120px;resize:vertical}
+.demo-note{font-size:.85rem;background:#ece3cf;border-left:2px solid var(--gold);padding:.8rem 1rem;margin:0}
+#form-status{min-height:1.5rem;font-size:.92rem;margin:0}
+
+/* stopka */
+footer{background:var(--black);color:var(--sand);padding:3rem 0;font-size:.85rem}
+.foot{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;align-items:center}
+footer .logo{font-size:1.2rem}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .about-grid,.contact-grid,.price-cols{grid-template-columns:1fr}
+  .reasons{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .t1,.t6{grid-column:span 2}
+  .burger{display:block}
+  nav{position:fixed;inset:var(--nav-h) 0 auto 0;background:var(--black);max-height:0;overflow:hidden;transition:max-height .45s ease}
+  nav.open{max-height:80vh}
+  nav ul{flex-direction:column;gap:0;padding:1rem var(--pad) 2rem}
+  nav a{display:block;padding:1rem 0;border-bottom:1px solid rgba(217,204,180,.15);font-size:.95rem}
+  header.menu-open{background:var(--black)}
+}
+@media (max-width:560px){
+  .reasons{grid-template-columns:1fr}
+  .price-row{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .hero .rule{width:min(320px,60%)}
+  .hero .line{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap nav">
+    <a href="#start" class="logo" aria-label="STUDIO NOIR – strona główna">STUDIO <span>NOIR</span></a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Otwórz menu"><span></span><span></span><span></span></button>
+    <nav id="menu" aria-label="Główna nawigacja">
+      <ul>
+        <li><a href="#salon">O salonie</a></li>
+        <li><a href="#oferta">Oferta</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#dlaczego">Dlaczego my</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="start">
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1400" srcset="https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=800 800w, https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1400 1400w, https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=2000 2000w" sizes="100vw" alt="Nowoczesne wnętrze salonu fryzjerskiego z eleganckimi fotelami i lustrami" loading="eager" decoding="async" referrerpolicy="no-referrer"></div>
+  <div class="wrap">
+    <h1>
+      <span class="line">Twój styl.</span>
+      <em class="line">Nasza pasja.</em>
+    </h1>
+    <div class="rule"></div>
+    <p class="line">Strzyżenie, koloryzacja i pielęgnacja włosów w spokojnym, minimalistycznym wnętrzu. Każda wizyta zaczyna się od rozmowy.</p>
+    <div class="actions line">
+      <a class="btn solid" href="#kontakt">Skontaktuj się</a>
+      <a class="btn" href="#oferta">Zobacz ofertę</a>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"></div>
+</section>
+
+<section id="salon">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <p class="kicker">O naszym salonie</p>
+      <h2>Cisza, światło i dobrze wykonane cięcie.</h2>
+      <p style="margin-top:1.8rem">STUDIO NOIR to fikcyjny salon stworzony na potrzeby projektu demonstracyjnego. Wyobrażamy go sobie jako miejsce, w którym nikt się nie spieszy: z ciepłym światłem, ciemnymi wnętrzami i fryzjerami, którzy najpierw słuchają, a dopiero potem sięgają po nożyczki.</p>
+      <p>Pracujemy w małym zespole, z jednym klientem naraz. Dzięki temu każda wizyta jest dopasowana do kształtu twarzy, struktury włosów i tego, jak naprawdę żyjesz.</p>
+      <div class="facts">
+        <div><strong>1:1</strong><span>jeden klient, jeden stylista</span></div>
+        <div><strong>90 min</strong><span>średni czas wizyty</span></div>
+        <div><strong>3</strong><span>stanowiska w salonie</span></div>
+      </div>
+    </div>
+    <div class="visual reveal"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&q=75&w=900" srcset="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&q=75&w=500 500w, https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&q=75&w=900 900w, https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&q=75&w=1400 1400w" sizes="(max-width:900px) 100vw, 45vw" alt="Fryzjerka układa włosy klientki suszarką i szczotką w salonie" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div>
+  </div>
+</section>
+
+<section id="oferta" class="dark">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <p class="kicker">Oferta i cennik</p>
+        <h2>Usługi i ceny</h2>
+      </div>
+      <a class="btn" href="#kontakt">Zapytaj o termin</a>
+    </div>
+    <div class="price-cols">
+      <div class="price-group reveal">
+        <h3>Strzyżenie</h3>
+        <div class="price-row"><div><span class="name">Strzyżenie damskie</span><span class="desc">Konsultacja, mycie, cięcie, stylizacja</span></div><span class="dots"></span><span class="price">180 zł</span></div>
+        <div class="price-row"><div><span class="name">Strzyżenie męskie</span><span class="desc">Cięcie nożyczkami lub maszynką, mycie</span></div><span class="dots"></span><span class="price">120 zł</span></div>
+        <div class="price-row"><div><span class="name">Konturowanie brody</span><span class="desc">Przycięcie, ciepły ręcznik, olejek</span></div><span class="dots"></span><span class="price">70 zł</span></div>
+      </div>
+      <div class="price-group reveal">
+        <h3>Koloryzacja</h3>
+        <div class="price-row"><div><span class="name">Koloryzacja jednolita</span><span class="desc">Odrosty lub zmiana odcienia</span></div><span class="dots"></span><span class="price">od 260 zł</span></div>
+        <div class="price-row"><div><span class="name">Balayage</span><span class="desc">Ręczne rozjaśnianie, tonowanie</span></div><span class="dots"></span><span class="price">od 520 zł</span></div>
+        <div class="price-row"><div><span class="name">Tonowanie i pielęgnacja</span><span class="desc">Odświeżenie koloru, połysk</span></div><span class="dots"></span><span class="price">150 zł</span></div>
+      </div>
+      <div class="price-group reveal">
+        <h3>Pielęgnacja</h3>
+        <div class="price-row"><div><span class="name">Rytuał regeneracyjny</span><span class="desc">Maska, masaż skóry głowy, suszenie</span></div><span class="dots"></span><span class="price">140 zł</span></div>
+        <div class="price-row"><div><span class="name">Keratynowe prostowanie</span><span class="desc">Zabieg wygładzający, czas zależy od długości</span></div><span class="dots"></span><span class="price">od 450 zł</span></div>
+      </div>
+      <div class="price-group reveal">
+        <h3>Stylizacja</h3>
+        <div class="price-row"><div><span class="name">Modelowanie</span><span class="desc">Mycie i układanie na wieczór</span></div><span class="dots"></span><span class="price">110 zł</span></div>
+        <div class="price-row"><div><span class="name">Fryzura okolicznościowa</span><span class="desc">Ślub, wesele, sesja zdjęciowa</span></div><span class="dots"></span><span class="price">od 250 zł</span></div>
+      </div>
+    </div>
+    <p class="note">Wszystkie ceny są fikcyjne i służą wyłącznie celom demonstracyjnym.</p>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker">Galeria</p>
+      <h2>Wnętrza i fryzury</h2>
+    </div>
+    <div class="gallery reveal">
+      <figure class="tile t1"><img src="https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1000" srcset="https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=600 600w, https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1781450090585-1a511b7066d9?auto=format&fit=crop&q=75&w=1600 1600w" sizes="(max-width:900px) 100vw, 600px" alt="Nowoczesne wnętrze salonu fryzjerskiego z fotelami i lustrami" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Wnętrze salonu</span></figure>
+      <figure class="tile t2"><img src="https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1440508319978-8b67875e39d7?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Kobieta z długimi, rozjaśnionymi włosami w stylu balayage" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Balayage</span></figure>
+      <figure class="tile t3"><img src="https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1722548387104-61bc2d2946d6?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Kobieta z krótką, wyraźnie wyciętą fryzurą" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Krótkie cięcie</span></figure>
+      <figure class="tile t4"><img src="https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1774660810725-fb04e002003d?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Fryzjer wykonujący upięcie włosów siedzącej klientce" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Upięcie</span></figure>
+      <figure class="tile t5"><img src="https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=700" srcset="https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=400 400w, https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=700 700w, https://images.unsplash.com/photo-1633681117690-262b94a01378?auto=format&fit=crop&q=75&w=1000 1000w" sizes="(max-width:900px) 50vw, 300px" alt="Szczegół wnętrza salonu: szary sufit z geometrycznym wzorem" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Detale wnętrza</span></figure>
+      <figure class="tile t6"><img src="https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=1000" srcset="https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=600 600w, https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1734111719430-fe4a3973f8af?auto=format&fit=crop&q=75&w=1600 1600w" sizes="(max-width:900px) 100vw, 600px" alt="Dłoń z okrągłą szczotką stylizująca długie blond włosy" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>Stylizacja</span></figure>
+    </div>
+    <p class="gallery-note">Zdjęcia: Unsplash (licencja Unsplash). Zdjęcia mają charakter poglądowy i nie przedstawiają prawdziwego salonu.</p>
+  </div>
+</section>
+
+<section id="dlaczego" class="dark">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker">Dlaczego warto nas wybrać</p>
+      <h2>Mniej pośpiechu, więcej uwagi.</h2>
+    </div>
+    <div class="reasons">
+      <div class="reason reveal"><h3>Konsultacja przed cięciem</h3><p>Zanim zaczniemy, ustalamy, czego oczekujesz i co jest realne dla Twoich włosów.</p></div>
+      <div class="reason reveal"><h3>Jeden klient naraz</h3><p>Nie dzielimy uwagi między kilka osób. Czas wizyty jest w całości Twój.</p></div>
+      <div class="reason reveal"><h3>Spokojne wnętrze</h3><p>Stonowane światło, cicha muzyka i brak tłoku. Miejsce, w którym można odpocząć.</p></div>
+      <div class="reason reveal"><h3>Starannie dobrane kosmetyki</h3><p>Korzystamy z profesjonalnych produktów dopasowanych do typu włosów.</p></div>
+      <div class="reason reveal"><h3>Jasne ceny</h3><p>Cennik jest na stronie, a przy usługach „od” podajemy widełki przed rozpoczęciem pracy.</p></div>
+      <div class="reason reveal"><h3>Pielęgnacja po wizycie</h3><p>Pokazujemy, jak utrzymać fryzurę w domu, bez skomplikowanych rytuałów.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <p class="kicker">Kontakt</p>
+      <h2>Porozmawiajmy.</h2>
+      <p style="margin-top:1.6rem">Poniższe dane są demonstracyjne i nie prowadzą do prawdziwej firmy.</p>
+      <ul class="contact-list">
+        <li><b>Adres</b>ul. Przykładowa 12, 00-000 Miasto</li>
+        <li><b>Telefon</b>+48 000 000 000</li>
+        <li><b>E-mail</b>kontakt@studionoir.example</li>
+        <li><b>Godziny otwarcia</b>pon.–pt. 10:00–19:00, sob. 9:00–15:00</li>
+      </ul>
+    </div>
+    <form id="contact-form" class="reveal" novalidate>
+      <p class="demo-note">To formularz demonstracyjny. Nie jest podłączony do żadnej obsługi, więc wiadomość nie zostanie wysłana ani zapisana.</p>
+      <div><label for="name">Imię</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+      <div><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      <div><label for="msg">Wiadomość</label><textarea id="msg" name="msg" required></textarea></div>
+      <button type="submit" class="btn solid on-light">Sprawdź formularz</button>
+      <p id="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="#start" class="logo">STUDIO <span>NOIR</span></a>
+    <span>Projekt demonstracyjny. Salon, dane i ceny są fikcyjne.</span>
+    <span>&copy; <span id="year">2026</span> STUDIO NOIR</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var header = document.getElementById("header");
+  var burger = document.getElementById("burger");
+  var menu = document.getElementById("menu");
+  var links = menu.querySelectorAll("a");
+
+  function setMenu(open) {
+    menu.classList.toggle("open", open);
+    header.classList.toggle("menu-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+    burger.setAttribute("aria-label", open ? "Zamknij menu" : "Otwórz menu");
+  }
+
+  burger.addEventListener("click", function () {
+    setMenu(burger.getAttribute("aria-expanded") !== "true");
+  });
+  links.forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
+  window.addEventListener("resize", function () { if (window.innerWidth > 900) setMenu(false); });
+
+  function onScroll() { header.classList.toggle("scrolled", window.scrollY > 40); }
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Aktywna sekcja w menu
+  var sections = Array.prototype.slice.call(document.querySelectorAll("main section[id]"));
+  if ("IntersectionObserver" in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          links.forEach(function (a) {
+            a.classList.toggle("active", a.getAttribute("href") === "#" + en.target.id);
+          });
+        }
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    sections.forEach(function (s) { spy.observe(s); });
+
+    // Subtelne pojawianie się elementów
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+  }
+
+  // Formularz demonstracyjny: tylko walidacja, bez wysyłki
+  var form = document.getElementById("contact-form");
+  var status = document.getElementById("form-status");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = form.elements.name.value.trim();
+    var email = form.elements.email.value.trim();
+    var msg = form.elements.msg.value.trim();
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!name || !emailOk || !msg) {
+      status.textContent = "Uzupełnij imię, poprawny adres e-mail i wiadomość.";
+      return;
+    }
+    status.textContent = "Formularz jest wypełniony poprawnie, ale to wersja demonstracyjna. Nic nie zostało wysłane.";
+  });
+
+  // Ukryj kafelek, jeśli zdjęcie się nie wczyta (bez pustych ramek)
+  document.querySelectorAll(".tile img").forEach(function (im) {
+    im.addEventListener("error", function () { im.parentElement.style.display = "none"; });
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
